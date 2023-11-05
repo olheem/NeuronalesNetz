@@ -13,13 +13,14 @@ public class Netz
      * 
      * @param eingaenge Anzahl der Eingänge für die erste Schicht
      * @param neuronenProSchicht die Anzahl der Knoten für die einzelnen Schichten
+     * @param af die Aktivierungsfunktion
      */
-    public Netz(int eingaenge, int[] neuronenProSchicht)
+    public Netz(int eingaenge, int[] neuronenProSchicht, Aktivierungsfunktion af)
     {
         schichten = new Schicht[neuronenProSchicht.length];
-        schichten[0] = new Schicht(eingaenge, neuronenProSchicht[0]);
+        schichten[0] = new Schicht(eingaenge, neuronenProSchicht[0], af);
         for (int i = 1; i < schichten.length; i++){
-            schichten[i] = new Schicht(neuronenProSchicht[i - 1], neuronenProSchicht[i]);
+            schichten[i] = new Schicht(neuronenProSchicht[i - 1], neuronenProSchicht[i], af);
         }
     }
 

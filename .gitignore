@@ -26,4 +26,9 @@ replay_pid*
 # Dokumentationen im Unterordner Quellcode
 Quellcode/doc/
 
+# Daten
+*.csv
+
+
+
 

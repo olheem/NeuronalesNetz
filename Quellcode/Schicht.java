@@ -16,13 +16,14 @@ public class Schicht
      * 
      * @param eingaenge die Anzahl der Eingaenge
      * @param neuronenanzahl die Anzahl der Neuronen
+     * @param af die Aktivierungsfunktion
      */
-    public Schicht(int eingaenge, int neuronenanzahl)
+    public Schicht(int eingaenge, int neuronenanzahl, Aktivierungsfunktion af)
     {
         this.eingaenge = eingaenge;
         neuronen = new Neuron[neuronenanzahl];
         for (int i = 0; i < neuronen.length; i++){
-            neuronen[i] = new Neuron(eingaenge);
+            neuronen[i] = new Neuron(eingaenge, af);
         }
     }
 

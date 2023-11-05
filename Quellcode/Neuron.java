@@ -16,14 +16,17 @@ public class Neuron
     private double[] deltaW;
     private double[] eingaben;
     private double delta;
+    private Aktivierungsfunktion af;
 
     /**
      * Konstruktor für Objekte der Klasse Neuron
      * 
      * @param eingaenge die Anzahl der Eingänge
+     * @param af die Aktivierungsfunktion
      */
-    public Neuron(int eingaenge)
+    public Neuron(int eingaenge, Aktivierungsfunktion af)
     {
+        this.af = af;
         n = eingaenge;
         net = 0;
         w = new double[n + 1];  // das letzte Gewicht ist für das Bias
@@ -61,8 +64,8 @@ public class Neuron
         net += 1 * w[n]; // Bias
 
         // Aktivierungsfunktion und deren Ableitung anwenden
-        phi = sigmoid(net);
-        phiStrich = sigmoidAbleitung(net);
+        phi = af.phi(net);
+        phiStrich = af.phiStrich(net);
     }
 
     /**
@@ -125,19 +128,4 @@ public class Neuron
     public double gibDelta(){
         return delta;
     }
-
-    /**
-     * Die Aktivierungsfunktion
-     */
-    private double sigmoid(double x){
-        return 1 / (1 + Math.exp(-x));
-    }
-
-    /**
-     * Die Ableitung der Aktivierungsfunktion
-     */
-    private double sigmoidAbleitung(double x){
-        return sigmoid(x) * (1 - sigmoid(x));
-    }
-
 }

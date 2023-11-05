@@ -1,8 +1,7 @@
 import java.io.*;
 
 /**
- * Das neuronale Netzwerk wird trainiert,
- * um handgeschriebene Ziffern zu erkennen.
+ * Erkennung von handgeschriebenen Ziffern mit den MNIST-Daten
  * 
  * @author Dr. Oliver Heidbüchel
  * @version 2023-04-26
@@ -16,9 +15,14 @@ public class MNIST
     int paketGroesse = 1000;
     int wiederholungen = 100;
 
-    public MNIST()
+    /**
+     * Konstruktor für die Erkennung von handgeschriebenen Ziffern mit den MNIST-Daten
+     * 
+     * @param af Aktivierungfunktion
+     */
+    public MNIST(Aktivierungsfunktion af)
     {
-        n = new Netz(784, new int[]{20,20,10});
+        n = new Netz(784, new int[]{20,20,10}, af);
 
         // lese Trainingsdaten
         int anzahl = 60000;
@@ -46,6 +50,14 @@ public class MNIST
         }
     }
 
+    /**
+     * Trainiere das neuronale Netz mit den MNIST-Trainingsdaten
+     * 
+     * @param lernrate die Lernrate
+     * @param paketGroesse die Paketgröße
+     * @param wiederholungen die Anzahl der Wiederholungen
+     * @return der Fehler
+     */
     public double trainiere(double lernrate, int paketGroesse, int wiederholungen){
         this.lernrate = lernrate;
         this.paketGroesse = paketGroesse;
@@ -53,6 +65,11 @@ public class MNIST
         return trainiere();
     }
 
+    /**
+     * Trainiere das neuronale Netz mit den MNIST-Trainingsdaten und Standardparametern
+     * 
+     * @return der Fehler
+     */
     public double trainiere(){
         long beginn = System.nanoTime();
         double fehler = n.trainiere(eingabe, ausgabe, lernrate, paketGroesse, wiederholungen);
@@ -62,9 +79,13 @@ public class MNIST
         return fehler;
     }
 
+    /**
+     * Teste das Netz mit den MNIST-Trainingsdaten<br>
+     * Die Ausgabe erfolgt über die Konsole.
+     */
     public void teste(){
         int korrekt = 0;
-        int abweichungen = 0;
+        int[] abweichungen = new int[10];
 
         try {
             FileReader filereader = new FileReader("mnist_test.csv");
@@ -89,7 +110,7 @@ public class MNIST
                 }
                 int berechnet = maxStelle;
                 System.out.println(zahl + " - " + berechnet);
-                if (zahl == berechnet) korrekt++; else abweichungen++;
+                if (zahl == berechnet) korrekt++; else abweichungen[zahl]++;
                 line = reader.readLine();
             }
             reader.close();
@@ -98,7 +119,11 @@ public class MNIST
         }
 
         System.out.println("Korrekt: " + korrekt);
-        System.out.println("Abweichungen: " + abweichungen);
+        System.out.println("Anzahl der Fehler bei ...");
+        for (int i = 0; i < 10; i++){
+            System.out.println("   ... " + i + ":" + abweichungen[i]);
+        }
+        System.out.println("insgesamt: " + (10000 - korrekt));
     }
 
 }
