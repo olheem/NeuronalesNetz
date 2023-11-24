@@ -11,7 +11,7 @@ public class MNIST
     private Netz n;
     private double[][] eingabe;
     private double[][] ausgabe;
-    double lernrate = 0.003;
+    double lernrate = 0.001;
     int paketGroesse = 1000;
     int wiederholungen = 100;
 
@@ -121,7 +121,7 @@ public class MNIST
         System.out.println("Korrekt: " + korrekt);
         System.out.println("Anzahl der Fehler bei ...");
         for (int i = 0; i < 10; i++){
-            System.out.println("   ... " + i + ":" + abweichungen[i]);
+            System.out.println("   ... " + i + ": " + abweichungen[i]);
         }
         System.out.println("insgesamt: " + (10000 - korrekt));
     }
