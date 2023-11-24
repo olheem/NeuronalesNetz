@@ -4,7 +4,7 @@ Diese Implementation soll die Erstellung eigener neuronaler Netze mit Java im Un
 
 ## Klassen
 Die Klassen Neuron, Schicht und Netz modellieren ein Neuronales Netz in einem BlueJ-Projekt.
-Dabei kann man verschiedene Aktivierungsfunktionen wählen, z.B. die Sigmoidfunktion.
+Dabei kann man verschiedene Aktivierungsfunktionen wählen, z.B. die Sigmoid-Funktion.
 
 ## Beispiele
 
