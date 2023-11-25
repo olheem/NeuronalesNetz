@@ -4,7 +4,7 @@
  * @author Dr. Oliver Heidbüchel
  * @version 2023-11-24
  */
-public class Tangenshyperbolicus extends Aktivierungsfunktion
+public class TangensHyperbolicus extends Aktivierungsfunktion
 {
     /**
      * Die Tangens hyperbolicus Funktion.
