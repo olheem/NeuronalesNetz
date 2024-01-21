@@ -3,6 +3,8 @@
  * 
  * @author Dr. Oliver Heidbüchel
  * @version 2023-11-24
+ * @author Daniel Garmann
+ * @version 2024-01-20
  */
 public class Softsign extends Aktivierungsfunktion
 {
@@ -26,4 +28,14 @@ public class Softsign extends Aktivierungsfunktion
         double d = Math.abs(x) + 1;
         return 1 / (d * d);
     }
+
+    /**
+     * Die Methode liefert eine String-Representation der Funktion
+     * @return eine String-Repraesentation der Funktion
+     */ 
+    @Override
+    public String toString() {
+        return "SoftSign";
+    }
+
 }

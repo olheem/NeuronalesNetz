@@ -7,6 +7,9 @@
 # BlueJ files
 *.ctxt
 
+# Backupdateien Javaeditor
+*.~*
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -28,7 +31,14 @@ Quellcode/doc/
 
 # Daten
 *.csv
+*.idx1
+*.idx3
 
+# Zentralabiturklassen
+List.java
 
+# Dokumentionen
+*.pdf
+*.docx
 
 

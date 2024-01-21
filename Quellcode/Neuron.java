@@ -5,6 +5,8 @@ import java.util.Random;
  * 
  * @author Dr. Oliver Heidbüchel
  * @version 2023-03-29
+ * @author Daniel Garmann
+ * @version 2024-01-20
  */
 public class Neuron
 {
@@ -128,4 +130,57 @@ public class Neuron
     public double gibDelta(){
         return delta;
     }
+
+    /**
+     * Die Methode liefert die Anzahl der Eingaenge des Neurons
+     * @return die Anzahl der Eingaenge
+     */
+    public int gibAnzahlEingaenge() {
+        return n;
+    }
+
+    /**
+     * Die Methode setzt die Gewichte auf vorgegebene Werte
+     * @param pGewichte die Gewichte
+     */
+    public void setzeGewichte(double[] pGewichte) {
+        w = pGewichte;
+    }
+
+    /**
+     * Die Methode liefert eine String-Representation des Neurons des Netzes
+     * @return eine String-Repraesentation des Neurons des Netzes
+     */ 
+    @Override
+    public String toString() {
+        String s = String.format("%f", w[0]);
+        for (int i = 1; i < w.length; i++) {
+            s = s + String.format(":%f", w[i]);
+        }
+        s = s + "/" + af.toString();
+        return s;
+    }
+
+    /**
+     * Die Methode liefert ein neues Neuron, welches aus einer String-Repraesentation ausgelesen wird.
+     * @param s die Zeichenkette mit der String-Repraesentation des Neurons
+     * @return ein neues Objekt der Klasse Neuron mit dem durch s repraesentierten Neuron
+     */
+    public static Neuron parseNeuron(String s) {    
+        String f = "Sigmoid";
+        if (s.indexOf("/") >= 0) {           
+            f = s.substring(s.indexOf("/") + 1);
+            s = s. substring(0, s.indexOf("/"));
+        }
+        s = s.replaceAll(",",".");
+        String[] eingaengezeilen = s.split(":");
+        double[] gewichte = new double[eingaengezeilen.length];
+        for (int i = 0; i < gewichte.length; i++) {
+            gewichte[i] = Double.parseDouble(eingaengezeilen[i]);
+        }
+        Neuron n = new Neuron(gewichte.length - 1, Aktivierungsfunktion.parseFunktion(f));
+        n.setzeGewichte(gewichte);
+        return n;
+    }
+
 }
