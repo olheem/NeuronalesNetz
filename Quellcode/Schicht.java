@@ -3,6 +3,8 @@
  * 
  * @author Dr. Oliver Heidbüchel
  * @version 2023-03-29
+ * @author Daniel Garmann
+ * @version 2024-01-20
  */
 public class Schicht
 {
@@ -53,7 +55,8 @@ public class Schicht
     public void berechneAenderungen(double lernrate, double[] ausgabe){
         for (int j = 0; j < neuronen.length; j++){
             Neuron kn = neuronen[j];
-            double delta = kn.phiStrichVonNet() * (kn.phiVonNet() - ausgabe[j]);
+            double delta = kn.phiStrichVonNet() * 
+                           (kn.phiVonNet() - ausgabe[j]);
             kn.setzeAenderung(lernrate, delta);
         }
     }
@@ -69,7 +72,8 @@ public class Schicht
             Neuron kn = neuronen[j];
             double s = 0;
             for (int k = 0; k < nachfolgeschicht.gibAnzahlNeuronen(); k++){
-                s += nachfolgeschicht.gibNeuron(k).gibDelta() * nachfolgeschicht.gibNeuron(k).gibGewicht(j);
+                s += nachfolgeschicht.gibNeuron(k).gibDelta() * 
+                       nachfolgeschicht.gibNeuron(k).gibGewicht(j);
             }
             double delta = kn.phiStrichVonNet() * s;
             kn.setzeAenderung(lernrate, delta);
@@ -111,4 +115,43 @@ public class Schicht
     private Neuron gibNeuron(int i){
         return neuronen[i];
     }
+
+    /**
+     * Die Methode belegt die Neuronen der Schicht mit vorgefertigten Neuronen
+     * @param pNeuronen das Array mit den Neuronen der Schicht
+     */
+    public void setzeNeuronen(Neuron[] pNeuronen) {
+        neuronen = pNeuronen;
+    }
+
+    /**
+     * Die Methode liefert eine String-Representation der Schicht des Netzes
+     * @return eine String-Repraesentation der Schicht des Netzes
+     */ 
+    @Override
+    public String toString() {
+        String s = ""; 
+        for (int i = 0; i < neuronen.length; i++) {
+            s = s + "\nNeuron " + i + ":" + neuronen[i];
+        }
+        return s;
+    }
+
+    /**
+     * Die Methode liefert eine neue Schicht, welche aus einer String-Repraesentation ausgelesen wird.
+     * @param s die Zeichenkette mit der String-Repraesentation der Schicht
+     * @return ein neues Objekt der Klasse Schicht mit der durch s repraesentierten Schicht
+     */
+    public static Schicht parseSchicht(String s) {
+        String[] neuronenzeile = s.split("Neuron [0-9]*:");
+        Neuron[] neuronen = new Neuron[neuronenzeile.length - 1];
+        for (int i = 1; i < neuronenzeile.length; i++) {
+            neuronen[i - 1] = Neuron.parseNeuron(neuronenzeile[i]);
+        }
+        int anzahlEingaenge = neuronen[0].gibAnzahlEingaenge();
+        Schicht l = new Schicht(neuronen[0].gibAnzahlEingaenge(), neuronen.length, null);
+        l.setzeNeuronen(neuronen);
+        return l;
+    }
+
 }

@@ -3,6 +3,8 @@
  * 
  * @author Dr. Oliver Heidbüchel
  * @version 2023-11-24
+ * @author Daniel Garmann
+ * @version 2024-01-20
  */
 public class Sigmoid extends Aktivierungsfunktion
 {
@@ -26,4 +28,14 @@ public class Sigmoid extends Aktivierungsfunktion
         double phiVonX = phi(x);
         return phiVonX * (1 - phiVonX);
     }
+
+    /**
+     * Die Methode liefert eine String-Representation der Funktion
+     * @return eine String-Repraesentation der Funktion
+     */ 
+    @Override
+    public String toString() {
+        return "Sigmoid";
+    }
 }
+

@@ -3,6 +3,8 @@
  * 
  * @author Dr. Oliver Heidbüchel
  * @version 2023-10-21
+ * @author Daniel Garmann
+ * @version 2024-01-20
  */
 public class Netz
 {
@@ -66,7 +68,7 @@ public class Netz
                 aendereGewichtungen();
             }
         }
-        
+
         double f = 0;
         for (int i = 0; i < eingabe.length; i++){
             f += fehler(ausgabe[0], berechne(eingabe[0]));
@@ -98,7 +100,62 @@ public class Netz
         }
         return summe / 2;
     }
+
+    /**
+     * Die Methode setzt die Schichten des Netzes
+     * @param pSchichten das Array mit den Schichten des Netzes
+     */
+    public void setzeSchichten(Schicht[] pSchichten) {
+        schichten = pSchichten;
+    }
+
+    /**
+     * Die Methode liefert eine String-Representation des neuronalen Netzes
+     * 
+     * @return eine String-Repraesentation des neuronalen Netzes
+     */    
+    @Override
+    public String toString() {
+        String s = "Architektur:" + schichten[0].gibAnzahlEingaenge();
+        for (int i = 0; i < schichten.length; i++) {
+            s = s + ">"+schichten[i].gibAnzahlNeuronen();
+        }
+        for (int i = 0; i < schichten.length; i++) {
+            s = s + "\nSchicht Nr. " + i + ":" + schichten[i];
+        }
+        return s;
+    }    
+
+    /**
+     * Die Methode liefert eine neues neuronales Netz, welches aus einer String-Repraesentation ausgelesen wird.
+     * 
+     * @param s die Zeichenkette mit der String-Repraesentation des Netzes
+     * @return ein neues Objekt der Klasse Netz mit dem durch s repraesentierten Netz
+     */
+    public static Netz parseNetz(String s) {
+
+        String[] zeilen = s.split("\n");
+        String architekturZeile = zeilen[0].substring(12);
+        String[] hilf = architekturZeile.split(">");
+        int[] architektur = new int[hilf.length];
+        for (int i = 0; i < hilf.length; i++) architektur[i] = Integer.parseInt(hilf[i]);
+
+        s = s.substring(s.indexOf("Schicht Nr."));
+        s = s.replaceAll("\n","");
+        s = s.replaceAll(",",".");
+        String[] schichtenzeile = s.split("Schicht Nr. [0-9]*:");
+        Schicht[] schichten = new Schicht[schichtenzeile.length - 1];
+        for (int i = 1; i < schichtenzeile.length; i++) {
+            schichten[i - 1] = Schicht.parseSchicht(schichtenzeile[i]);
+        }  
+        int[] neuronenanzahlen = new int[schichten.length];
+        for (int i = 0; i < schichten.length; i++) {
+            neuronenanzahlen[i] = schichten[i].gibAnzahlNeuronen();
+        }
+        Netz n = new Netz(architektur[0], neuronenanzahlen, null);
+        n.setzeSchichten(schichten);
+        return n;
+    }  
+
 }
-
-
 
