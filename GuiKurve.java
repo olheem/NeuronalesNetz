@@ -9,20 +9,23 @@ import java.io.*;
 import java.io.FileWriter;
 import java.io.FileReader;
 
+import GUILib.*;
+import NeuronalesNetz.*;
+
+
 /**
   *
-  * Grafische Oberflaeche fuer Neuronale Netze zur Ziffernerkennung
+  * Grafische Oberflaeche fuer Neuronale Netze fuer Kurven
   *
-  * @version 2024-01-20
+  * @version 2024-01-18
   * @author Daniel Garmann
   */
 
-public class GuiZiffern extends JFrame {
+public class GuiKurve extends JFrame {
   // Anfang Attribute
   private Netz neuronalesNetz = null;
-  private Datensammlung trainingsdaten = new Datensammlung();
   
-  private PanelZiffern jpRGB = new PanelZiffern();
+  private PanelKurve jpKurve = new PanelKurve();
   private JButton jbNetzErstellen = new JButton();
   private JButton jbTrainiere = new JButton();
   private JButton jbLoeschen = new JButton();
@@ -47,21 +50,15 @@ public class GuiZiffern extends JFrame {
   private JButton jbNetzLaden = new JButton();
   private JButton jbDatenSpeichern = new JButton();
   private JButton jbDatenLaden = new JButton();
-  private JButton jbNeueZiffer = new JButton();
-  private JButton jbZeichenflaecheLoeschen = new JButton();
-  private JButton jbZumAnfang = new JButton();
-  private JButton jbVor = new JButton();
-  private JButton jbZumEnde = new JButton();
-  private JTextField jtfZiffer = new JTextField();
-  private JButton jbErkennen = new JButton();
-  private JButton jbMNIST = new JButton();
+  private JTextArea jtaBeschreibung = new JTextArea("");
+    private JScrollPane jtaBeschreibungScrollPane = new JScrollPane(jtaBeschreibung);
   // Ende Attribute
 
-  public GuiZiffern (String title) {
+  public GuiKurve (String title) {
     super (title);
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     int frameWidth = 760; 
-    int frameHeight = 505;
+    int frameHeight = 487;
     setSize(frameWidth, frameHeight);
     Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (d.width - getSize().width) / 2;
@@ -70,10 +67,10 @@ public class GuiZiffern extends JFrame {
     Container cp = getContentPane();
     cp.setLayout(null);
     // Anfang Komponenten
-    jpRGB.setBounds(24, 8, 400, 400);
-    jpRGB.setOpaque(false);
-    jpRGB.setBorder(new javax.swing.border.LineBorder(Color.BLACK, 0));
-    cp.add(jpRGB);
+    jpKurve.setBounds(24, 8, 400, 400);
+    jpKurve.setOpaque(false);
+    jpKurve.setBorder(new javax.swing.border.LineBorder(Color.BLACK, 0));
+    cp.add(jpKurve);
     jbNetzErstellen.setBounds(440, 208, 283, 25);
     jbNetzErstellen.setText("Netz erstellen");
     jbNetzErstellen.setMargin(new Insets(2, 2, 2, 2));
@@ -105,11 +102,11 @@ public class GuiZiffern extends JFrame {
     jpNetzarchitektur.setOpaque(false);
     jpNetzarchitektur.setBorder(BorderFactory.createTitledBorder("Netzarchitektur"));
     cp.add(jpNetzarchitektur);
-    jtfNetzarchitektur.setBounds(179, 24, 54, 20);
+    jtfNetzarchitektur.setBounds(155, 24, 78, 20);
     jcbFunktion.setBounds(139, 45, 110, 20);
     jlSchichten.setBounds(14, 24, 67, 20);
     jlAktivierungsfunktion.setBounds(13, 45, 124, 20);
-    jtfNetzarchitektur.setText("100");
+    jtfNetzarchitektur.setText("4>5");
     jtfNetzarchitektur.setHorizontalAlignment(SwingConstants.CENTER);
     jpNetzarchitektur.add(jtfNetzarchitektur);
     jcbFunktion.setModel(jcbFunktionModel);
@@ -131,19 +128,19 @@ public class GuiZiffern extends JFrame {
     jtfWiederholungen.setBounds(131, 45, 70, 20);
     lPaketgroesse.setBounds(13, 21, 100, 20);
     jtfPaketgroesse.setBounds(131, 21, 70, 20);
-    jtfLernrate.setText("0.001");
+    jtfLernrate.setText("0.05");
     jtfLernrate.setHorizontalAlignment(SwingConstants.CENTER);
     jpTraining.add(jtfLernrate);
     jlLernrate.setText("Lernrate:");
     jpTraining.add(jlLernrate);
     lWiederholungen.setText("Wiederholungen:");
     jpTraining.add(lWiederholungen);
-    jtfWiederholungen.setText("100");
+    jtfWiederholungen.setText("10000");
     jtfWiederholungen.setHorizontalAlignment(SwingConstants.CENTER);
     jpTraining.add(jtfWiederholungen);
     lPaketgroesse.setText("Paketgroesse:");
     jpTraining.add(lPaketgroesse);
-    jtfPaketgroesse.setText("1000");
+    jtfPaketgroesse.setText("10");
     jtfPaketgroesse.setHorizontalAlignment(SwingConstants.CENTER);
     jpTraining.add(jtfPaketgroesse);
     jtfFehler.setBounds(651, 397, 70, 20);
@@ -154,12 +151,12 @@ public class GuiZiffern extends JFrame {
     jlFehler.setText("Fehler:");
     jlFehler.setHorizontalAlignment(SwingConstants.RIGHT);
     cp.add(jlFehler);
-    jtfEingabeSchicht.setBounds(136, 24, 46, 20);
-    jtfEingabeSchicht.setText("28*28>");
+    jtfEingabeSchicht.setBounds(136, 24, 22, 20);
+    jtfEingabeSchicht.setText("1>");
     jtfEingabeSchicht.setEditable(false);
     jpNetzarchitektur.add(jtfEingabeSchicht);
-    htfAusgabeschicht.setBounds(232, 24, 38, 20);
-    htfAusgabeschicht.setText(">10");
+    htfAusgabeschicht.setBounds(232, 24, 22, 20);
+    htfAusgabeschicht.setText(">1");
     htfAusgabeschicht.setEditable(false);
     jpNetzarchitektur.add(htfAusgabeschicht);
 
@@ -199,75 +196,13 @@ public class GuiZiffern extends JFrame {
       }
     });
     cp.add(jbDatenLaden);
-    jbNeueZiffer.setBounds(234, 408, 190, 25);
-    jbNeueZiffer.setText("gezeichnete Ziffer -> Trainingsdaten");
-    jbNeueZiffer.setMargin(new Insets(2, 2, 2, 2));
-    jbNeueZiffer.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        jbNeueZiffer_ActionPerformed(evt);
-      }
-    });
-    cp.add(jbNeueZiffer);
-    jbZeichenflaecheLoeschen.setBounds(24, 408, 190, 25);
-    jbZeichenflaecheLoeschen.setText("Zeichenflaeche loeschen");
-    jbZeichenflaecheLoeschen.setMargin(new Insets(2, 2, 2, 2));
-    jbZeichenflaecheLoeschen.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        jbZeichenflaecheLoeschen_ActionPerformed(evt);
-      }
-    });
-    cp.add(jbZeichenflaecheLoeschen);
-    jbZumAnfang.setBounds(544, 8, 33, 25);
-    jbZumAnfang.setText("|<");
-    jbZumAnfang.setMargin(new Insets(2, 2, 2, 2));
-    jbZumAnfang.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        jbZumAnfang_ActionPerformed(evt);
-      }
-    });
-    cp.add(jbZumAnfang);
-    jbVor.setBounds(584, 8, 33, 25);
-    jbVor.setText(">");
-    jbVor.setMargin(new Insets(2, 2, 2, 2));
-    jbVor.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        jbVor_ActionPerformed(evt);
-      }
-    });
-    cp.add(jbVor);
-    jbZumEnde.setBounds(624, 8, 33, 25);
-    jbZumEnde.setText(">|");
-    jbZumEnde.setMargin(new Insets(2, 2, 2, 2));
-    jbZumEnde.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        jbZumEnde_ActionPerformed(evt);
-      }
-    });
-    cp.add(jbZumEnde);
-    jtfZiffer.setBounds(424, 8, 49, 49);
-    jtfZiffer.setHorizontalAlignment(SwingConstants.CENTER);
-    jtfZiffer.setText("");
-    jtfZiffer.setFont(new Font("Dialog", Font.PLAIN, 36));
-    jtfZiffer.setEditable(false);
-    cp.add(jtfZiffer);
-    jbErkennen.setBounds(24, 432, 190, 25);
-    jbErkennen.setText("Ziffer erkennen");
-    jbErkennen.setMargin(new Insets(2, 2, 2, 2));
-    jbErkennen.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        jbErkennen_ActionPerformed(evt);
-      }
-    });
-    cp.add(jbErkennen);
-    jbMNIST.setBounds(584, 40, 139, 25);
-    jbMNIST.setText("MNIST laden");
-    jbMNIST.setMargin(new Insets(2, 2, 2, 2));
-    jbMNIST.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        jbMNIST_ActionPerformed(evt);
-      }
-    });
-    cp.add(jbMNIST);
+    jtaBeschreibungScrollPane.setBounds(440, 8, 281, 57);
+    jtaBeschreibung.setText("Bitte zeichnen Sie auf der Zeichenflaeche eine Kurve. Das neuronale Netz versucht einen Funktionsgraphen darunter zu legen.");
+    jtaBeschreibung.setWrapStyleWord(true);
+    jtaBeschreibung.setLineWrap(true);
+    jtaBeschreibung.setEditable(false);
+    jtaBeschreibung.setBackground(getBackground());
+    cp.add(jtaBeschreibungScrollPane);
     // Ende Komponenten
     setResizable(false);
     setVisible(true);
@@ -284,9 +219,10 @@ public class GuiZiffern extends JFrame {
       for (int i = 0; i < schichtenTexte.length; i++) {
         schichten[i] = Integer.parseInt(schichtenTexte[i]);
       }
-      schichten[schichten.length - 1] = 10;
+      schichten[schichten.length - 1] = 1;
       Aktivierungsfunktion funktion = Aktivierungsfunktion.parseFunktion((String)jcbFunktion.getSelectedItem());
-      neuronalesNetz = new Netz(28 * 28, schichten, funktion);
+      neuronalesNetz = new Netz(1, schichten, funktion);
+      jpKurve.setzeNeuronalesNetz(neuronalesNetz);
     } catch (Exception e) {
       JOptionPane.showMessageDialog(this, "Fehler in Netzeingabe\nAnzahl Neuronen pro Schicht\nTrennung der Schichten mit >");  
     } 
@@ -295,11 +231,10 @@ public class GuiZiffern extends JFrame {
   public void jbTrainiere_ActionPerformed(ActionEvent evt) {
     if (neuronalesNetz != null) {
       try {
-        //trainingsdaten.mischen();
         double lernrate = Double.parseDouble(jtfLernrate.getText());
         int wiederholungen = Integer.parseInt(jtfWiederholungen.getText());
         int paketgroesse = Integer.parseInt(jtfPaketgroesse.getText());
-        double fehler = neuronalesNetz.trainiere(trainingsdaten.gibEingabenArray(),trainingsdaten.gibZielwerteArray(), lernrate, paketgroesse, wiederholungen);
+        double fehler = neuronalesNetz.trainiere(jpKurve.gibEingabenArray(), jpKurve.gibZielwerteArray(), lernrate, paketgroesse, wiederholungen);
         jtfFehler.setText(String.format("%f",fehler));
       } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Bitte im gueltigen Zahlenformat eingeben!\nAnzahlen: Ganzzahl\nLenrrate: Dezimalzahl mit .-Notation");
@@ -307,11 +242,12 @@ public class GuiZiffern extends JFrame {
     } else {
       JOptionPane.showMessageDialog(this, "Erst Netz erstellen!");
     }    
-    jpRGB.repaint();
+    jpKurve.repaint();
   }
 
   public void jbLoeschen_ActionPerformed(ActionEvent evt) {
-    trainingsdaten.loescheAlle();
+    jpKurve.loescheDaten();
+    
   }
 
 
@@ -361,6 +297,7 @@ public class GuiZiffern extends JFrame {
           zeile = leser.readLine();
         }
         neuronalesNetz = Netz.parseNetz(s);
+        jpKurve.setzeNeuronalesNetz(neuronalesNetz);
         leser.close();
       } catch (Exception e) {
         System.err.println(e.toString());
@@ -386,7 +323,7 @@ public class GuiZiffern extends JFrame {
       }
       try {
         FileWriter schreiber = new FileWriter(datei);
-        schreiber.write(trainingsdaten.toString());
+        schreiber.write(jpKurve.gibTrainingsdaten().toString());
         schreiber.close();
       } catch (Exception e) {
         System.err.println(e.toString());
@@ -414,78 +351,19 @@ public class GuiZiffern extends JFrame {
           s = s + zeile + "\n";
           zeile = leser.readLine();
         }
-        trainingsdaten = Datensammlung.parseDatensammlung(s);
+        jpKurve.setzeTrainingsdaten(Datensammlung.parseDatensammlung(s));
         leser.close();
       } catch (Exception e) {
         System.err.println(e.toString());
       }
-    } 
-    trainingsdaten.gibDaten().toFirst(); 
-    zeigeAktuellenDatensatz();
+    }  
     repaint();  
-  }
-  
-  private void zeigeAktuellenDatensatz() {
-    jpRGB.neuesBild();
-    jpRGB.repaint();
-    List<Datensatz> l = trainingsdaten.gibDaten(); 
-    int ziffer = jpRGB.zeichneDatensatz(l.getContent());
-    jtfZiffer.setText("" + ziffer);
-  }
-
-  public void jbNeueZiffer_ActionPerformed(ActionEvent evt) {
-    int ziffer = Integer.parseInt(JOptionPane.showInputDialog(this, "Welcher Ziffer entspricht das Bild?"));
-    trainingsdaten.fuegeEin(jpRGB.erstelleDatensatz(ziffer));
-    jpRGB.repaint();
-  }
-
-  public void jbZeichenflaecheLoeschen_ActionPerformed(ActionEvent evt) {
-    jpRGB.neuesBild();
-    jtfZiffer.setText("");
-    jpRGB.repaint();
-    
-  }
-
-  public void jbZumAnfang_ActionPerformed(ActionEvent evt) {
-    trainingsdaten.gibDaten().toFirst(); 
-    zeigeAktuellenDatensatz();
-  }
-
-  public void jbVor_ActionPerformed(ActionEvent evt) {
-    trainingsdaten.gibDaten().next();     
-    zeigeAktuellenDatensatz();
-  }
-
-  public void jbZumEnde_ActionPerformed(ActionEvent evt) {
-    trainingsdaten.gibDaten().toLast(); 
-    zeigeAktuellenDatensatz();
-  }
-
-  public void jbErkennen_ActionPerformed(ActionEvent evt) {
-    if (neuronalesNetz == null) {
-      JOptionPane.showMessageDialog(this, "Erst ein neuronales Netz erstellen");
-    } else {
-      Datensatz d = jpRGB.erstelleDatensatz(0);
-      double[] eingabe = d.gibEingabe();
-      double[] ausgabe = neuronalesNetz.berechne(eingabe);
-      Datensatz z = new Datensatz(eingabe, ausgabe);
-      int ziffer = jpRGB.zeichneDatensatz(z);
-      jtfZiffer.setText("" + ziffer);
-    }
-  }
-
-  public void jbMNIST_ActionPerformed(ActionEvent evt) {
-    MNISTDecoder d = new MNISTDecoder();
-    d.loadData();
-    
-    trainingsdaten = new Datensammlung(d.trainDigits);
-    
   }
 
   // Ende Methoden
 
   public static void main(String[] args) {
-    new GuiZiffern("Gui-Ziffern");
+    new GuiKurve("Gui-Kurve");
   }
 }
 

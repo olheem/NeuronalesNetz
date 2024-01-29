@@ -1,3 +1,5 @@
+package GUILib;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -5,6 +7,9 @@ import javax.swing.*;
 import javax.swing.event.*; 
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
+
+import NeuronalesNetz.*;
+
 
 public class PanelFigur extends JPanel {
 

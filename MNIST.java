@@ -1,4 +1,5 @@
 import java.io.*;
+import NeuronalesNetz.*;
 
 /**
  * Erkennung von handgeschriebenen Ziffern mit den MNIST-Daten

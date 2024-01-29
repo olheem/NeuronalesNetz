@@ -1,3 +1,5 @@
+package NeuronalesNetz;
+
 /**
  * Eine Schicht in einem neuronalen Netz.
  * 
