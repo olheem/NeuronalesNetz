@@ -9,21 +9,28 @@ import java.io.*;
 import java.io.FileWriter;
 import java.io.FileReader;
 
+import GUILib.*;
+import NeuronalesNetz.*;
+
+
 /**
  *
- * Grafische Oberflaeche fuer Neuronale Netze auf Figuren-Erkennung
+ * Grafische Oberflaeche fuer Neuronale Netze mit Farben
  *
  * @version 2024-01-20
  * @author Daniel Garmann
  */
 
-public class GuiFigur extends JFrame {
+public class GuiRGB extends JFrame {
     // Anfang Attribute
     private Netz neuronalesNetz = null;
-    private Datensammlung trainingsdaten = new Datensammlung();
-    private int datensatzNummer = 0;
 
-    private PanelFigur jpFigur = new PanelFigur();
+    private PanelRGB jpRGB = new PanelRGB();
+    private JButton jbRot = new JButton();
+    private JButton jbGruen = new JButton();
+    private JButton jbBlau = new JButton();
+    private JButton jbWeiss = new JButton();
+    private JButton jbSchwarz = new JButton();
     private JButton jbNetzErstellen = new JButton();
     private JButton jbTrainiere = new JButton();
     private JButton jbLoeschen = new JButton();
@@ -42,27 +49,20 @@ public class GuiFigur extends JFrame {
     private JTextField jtfWiederholungen = new JTextField();
     private JLabel lPaketgroesse = new JLabel();
     private JTextField jtfPaketgroesse = new JTextField();
+    private JButton jbFreieFarbe = new JButton();
     private JTextField jtfFehler = new JTextField();
     private JLabel jlFehler = new JLabel();
     private JButton jbNetzSpeichern = new JButton();
     private JButton jbNetzLaden = new JButton();
     private JButton jbDatenSpeichern = new JButton();
     private JButton jbDatenLaden = new JButton();
-    private JButton jbNeueZiffer = new JButton();
-    private JButton jbZeichenflaecheLoeschen = new JButton();
-    private JButton jbZumAnfang = new JButton();
-    private JButton jbVor = new JButton();
-    private JButton jbZumEnde = new JButton();
-    private JTextField jtfFigur = new JTextField();
-    private JButton jbErkenne = new JButton();
-    private JLabel jlNummer = new JLabel();
     // Ende Attribute
 
-    public GuiFigur (String title) {
+    public GuiRGB (String title) {
         super (title);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         int frameWidth = 760; 
-        int frameHeight = 521;
+        int frameHeight = 487;
         setSize(frameWidth, frameHeight);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (d.width - getSize().width) / 2;
@@ -71,10 +71,70 @@ public class GuiFigur extends JFrame {
         Container cp = getContentPane();
         cp.setLayout(null);
         // Anfang Komponenten
-        jpFigur.setBounds(24, 8, 400, 400);
-        jpFigur.setOpaque(false);
-        jpFigur.setBorder(new javax.swing.border.LineBorder(Color.BLACK, 0));
-        cp.add(jpFigur);
+        jpRGB.setBounds(24, 8, 400, 400);
+        jpRGB.setOpaque(false);
+        jpRGB.setBorder(new javax.swing.border.LineBorder(Color.BLACK, 0));
+        cp.add(jpRGB);
+        jbRot.setBounds(440, 8, 90, 25);
+        jbRot.setText("");
+        jbRot.setMargin(new Insets(2, 2, 2, 2));
+        jbRot.addActionListener(new ActionListener() { 
+                public void actionPerformed(ActionEvent evt) { 
+                    jpRGB.setzeFarbe(((JButton)evt.getSource()).getBackground());
+                }
+            });
+        jbRot.setBackground(Color.RED);
+        cp.add(jbRot);
+        jbGruen.setBounds(536, 8, 90, 25);
+        jbGruen.setText("");
+        jbGruen.setMargin(new Insets(2, 2, 2, 2));
+        jbGruen.addActionListener(new ActionListener() { 
+                public void actionPerformed(ActionEvent evt) { 
+                    jpRGB.setzeFarbe(((JButton)evt.getSource()).getBackground());
+                }
+            });
+        jbGruen.setBackground(Color.GREEN);
+        cp.add(jbGruen);
+        jbBlau.setBounds(632, 8, 90, 25);
+        jbBlau.setText("");
+        jbBlau.setMargin(new Insets(2, 2, 2, 2));
+        jbBlau.addActionListener(new ActionListener() { 
+                public void actionPerformed(ActionEvent evt) { 
+                    jpRGB.setzeFarbe(((JButton)evt.getSource()).getBackground());
+                }
+            });
+        jbBlau.setBackground(Color.BLUE);
+        cp.add(jbBlau);
+        jbWeiss.setBounds(440, 40, 90, 25);
+        jbWeiss.setText("");
+        jbWeiss.setMargin(new Insets(2, 2, 2, 2));
+        jbWeiss.addActionListener(new ActionListener() { 
+                public void actionPerformed(ActionEvent evt) { 
+                    jpRGB.setzeFarbe(((JButton)evt.getSource()).getBackground());
+                }
+            });
+        jbWeiss.setBackground(Color.WHITE);
+        cp.add(jbWeiss);
+        jbSchwarz.setBounds(536, 40, 90, 25);
+        jbSchwarz.setText("");
+        jbSchwarz.setMargin(new Insets(2, 2, 2, 2));
+        jbSchwarz.addActionListener(new ActionListener() { 
+                public void actionPerformed(ActionEvent evt) { 
+                    jpRGB.setzeFarbe(((JButton)evt.getSource()).getBackground());
+                }
+            });
+        jbSchwarz.setBackground(Color.BLACK);
+        cp.add(jbSchwarz);
+        jbFreieFarbe.setBounds(632, 40, 90, 25);
+        jbFreieFarbe.setText("freie Farbe");
+        jbFreieFarbe.setMargin(new Insets(2, 2, 2, 2));
+        jbFreieFarbe.addActionListener(new ActionListener() { 
+                public void actionPerformed(ActionEvent evt) { 
+                    jbFreieFarbe_ActionPerformed(evt);
+                }
+            });
+        jbFreieFarbe.setBackground(new Color(0xC0C0C0));
+        cp.add(jbFreieFarbe);
         jbNetzErstellen.setBounds(440, 208, 283, 25);
         jbNetzErstellen.setText("Netz erstellen");
         jbNetzErstellen.setMargin(new Insets(2, 2, 2, 2));
@@ -106,11 +166,11 @@ public class GuiFigur extends JFrame {
         jpNetzarchitektur.setOpaque(false);
         jpNetzarchitektur.setBorder(BorderFactory.createTitledBorder("Netzarchitektur"));
         cp.add(jpNetzarchitektur);
-        jtfNetzarchitektur.setBounds(179, 24, 54, 20);
+        jtfNetzarchitektur.setBounds(155, 24, 78, 20);
         jcbFunktion.setBounds(139, 45, 110, 20);
         jlSchichten.setBounds(14, 24, 67, 20);
         jlAktivierungsfunktion.setBounds(13, 45, 124, 20);
-        jtfNetzarchitektur.setText("30");
+        jtfNetzarchitektur.setText("4>5");
         jtfNetzarchitektur.setHorizontalAlignment(SwingConstants.CENTER);
         jpNetzarchitektur.add(jtfNetzarchitektur);
         jcbFunktion.setModel(jcbFunktionModel);
@@ -132,7 +192,7 @@ public class GuiFigur extends JFrame {
         jtfWiederholungen.setBounds(131, 45, 70, 20);
         lPaketgroesse.setBounds(13, 21, 100, 20);
         jtfPaketgroesse.setBounds(131, 21, 70, 20);
-        jtfLernrate.setText("0.05");
+        jtfLernrate.setText("0.01");
         jtfLernrate.setHorizontalAlignment(SwingConstants.CENTER);
         jpTraining.add(jtfLernrate);
         jlLernrate.setText("Lernrate:");
@@ -155,11 +215,11 @@ public class GuiFigur extends JFrame {
         jlFehler.setText("Fehler:");
         jlFehler.setHorizontalAlignment(SwingConstants.RIGHT);
         cp.add(jlFehler);
-        jtfEingabeSchicht.setBounds(136, 24, 46, 20);
-        jtfEingabeSchicht.setText("10*10>");
+        jtfEingabeSchicht.setBounds(136, 24, 22, 20);
+        jtfEingabeSchicht.setText("2>");
         jtfEingabeSchicht.setEditable(false);
         jpNetzarchitektur.add(jtfEingabeSchicht);
-        htfAusgabeschicht.setBounds(232, 24, 38, 20);
+        htfAusgabeschicht.setBounds(232, 24, 22, 20);
         htfAusgabeschicht.setText(">3");
         htfAusgabeschicht.setEditable(false);
         jpNetzarchitektur.add(htfAusgabeschicht);
@@ -200,76 +260,19 @@ public class GuiFigur extends JFrame {
                 }
             });
         cp.add(jbDatenLaden);
-        jbNeueZiffer.setBounds(234, 408, 190, 25);
-        jbNeueZiffer.setText("Figur -> Trainingsdaten");
-        jbNeueZiffer.setMargin(new Insets(2, 2, 2, 2));
-        jbNeueZiffer.addActionListener(new ActionListener() { 
-                public void actionPerformed(ActionEvent evt) { 
-                    jbNeueZiffer_ActionPerformed(evt);
-                }
-            });
-        cp.add(jbNeueZiffer);
-        jbZeichenflaecheLoeschen.setBounds(24, 408, 190, 25);
-        jbZeichenflaecheLoeschen.setText("Zeichenflaeche loeschen");
-        jbZeichenflaecheLoeschen.setMargin(new Insets(2, 2, 2, 2));
-        jbZeichenflaecheLoeschen.addActionListener(new ActionListener() { 
-                public void actionPerformed(ActionEvent evt) { 
-                    jbZeichenflaecheLoeschen_ActionPerformed(evt);
-                }
-            });
-        cp.add(jbZeichenflaecheLoeschen);
-        jbZumAnfang.setBounds(576, 8, 33, 25);
-        jbZumAnfang.setText("|<");
-        jbZumAnfang.setMargin(new Insets(2, 2, 2, 2));
-        jbZumAnfang.addActionListener(new ActionListener() { 
-                public void actionPerformed(ActionEvent evt) { 
-                    jbZumAnfang_ActionPerformed(evt);
-                }
-            });
-        cp.add(jbZumAnfang);
-        jbVor.setBounds(616, 8, 33, 25);
-        jbVor.setText(">");
-        jbVor.setMargin(new Insets(2, 2, 2, 2));
-        jbVor.addActionListener(new ActionListener() { 
-                public void actionPerformed(ActionEvent evt) { 
-                    jbVor_ActionPerformed(evt);
-                }
-            });
-        cp.add(jbVor);
-        jbZumEnde.setBounds(656, 8, 33, 25);
-        jbZumEnde.setText(">|");
-        jbZumEnde.setMargin(new Insets(2, 2, 2, 2));
-        jbZumEnde.addActionListener(new ActionListener() { 
-                public void actionPerformed(ActionEvent evt) { 
-                    jbZumEnde_ActionPerformed(evt);
-                }
-            });
-        cp.add(jbZumEnde);
-        jtfFigur.setBounds(424, 8, 113, 49);
-        jtfFigur.setHorizontalAlignment(SwingConstants.CENTER);
-        jtfFigur.setText("");
-        jtfFigur.setEditable(false);
-        jtfFigur.setFont(new Font("Dialog", Font.PLAIN, 24));
-        cp.add(jtfFigur);
-        jbErkenne.setBounds(24, 440, 190, 25);
-        jbErkenne.setText("Figur erkennen");
-        jbErkenne.setMargin(new Insets(2, 2, 2, 2));
-        jbErkenne.addActionListener(new ActionListener() { 
-                public void actionPerformed(ActionEvent evt) { 
-                    jbErkenne_ActionPerformed(evt);
-                }
-            });
-        cp.add(jbErkenne);
-        jlNummer.setBounds(576, 40, 113, 25);
-        jlNummer.setText("0");
-        jlNummer.setHorizontalAlignment(SwingConstants.CENTER);
-        cp.add(jlNummer);
         // Ende Komponenten
         setResizable(false);
         setVisible(true);
     }
 
     // Anfang Methoden
+    public void jbFreieFarbe_ActionPerformed(ActionEvent evt) {
+        JColorChooser farbauswahl = new JColorChooser(jbFreieFarbe.getBackground());
+        Color farbe = farbauswahl.showDialog(this, "Farbauswahl", jbFreieFarbe.getBackground());
+        jbFreieFarbe.setBackground(farbe);
+        jpRGB.setzeFarbe(jbFreieFarbe.getBackground());
+    }
+
     public void jbNetzErstellen_ActionPerformed(ActionEvent evt) {
         try {
             String schichtenText = jtfNetzarchitektur.getText().replaceAll(" ","");
@@ -280,7 +283,8 @@ public class GuiFigur extends JFrame {
             }
             schichten[schichten.length - 1] = 3;
             Aktivierungsfunktion funktion = Aktivierungsfunktion.parseFunktion((String)jcbFunktion.getSelectedItem());
-            neuronalesNetz = new Netz(10 * 10, schichten, funktion);
+            neuronalesNetz = new Netz(2, schichten, funktion);
+            jpRGB.setzeNeuronalesNetz(neuronalesNetz);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Fehler in Netzeingabe\nAnzahl Neuronen pro Schicht\nTrennung der Schichten mit >");  
         } 
@@ -289,11 +293,10 @@ public class GuiFigur extends JFrame {
     public void jbTrainiere_ActionPerformed(ActionEvent evt) {
         if (neuronalesNetz != null) {
             try {
-                trainingsdaten.mischen();
                 double lernrate = Double.parseDouble(jtfLernrate.getText());
                 int wiederholungen = Integer.parseInt(jtfWiederholungen.getText());
                 int paketgroesse = Integer.parseInt(jtfPaketgroesse.getText());
-                double fehler = neuronalesNetz.trainiere(trainingsdaten.gibEingabenArray(), trainingsdaten.gibZielwerteArray(), lernrate, paketgroesse, wiederholungen);
+                double fehler = neuronalesNetz.trainiere(jpRGB.gibEingabenArray(), jpRGB.gibZielwerteArray(), lernrate, paketgroesse, wiederholungen);
                 jtfFehler.setText(String.format("%f",fehler));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Bitte im gueltigen Zahlenformat eingeben!\nAnzahlen: Ganzzahl\nLenrrate: Dezimalzahl mit .-Notation");
@@ -301,12 +304,12 @@ public class GuiFigur extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Erst Netz erstellen!");
         }    
-        jpFigur.repaint();
+        jpRGB.repaint();
     }
 
     public void jbLoeschen_ActionPerformed(ActionEvent evt) {
-        trainingsdaten.loescheAlle();
-        datensatzNummer = 0;
+        jpRGB.loescheDaten();
+
     }
 
     public void jbNetzSpeichern_ActionPerformed(ActionEvent evt) {
@@ -347,14 +350,15 @@ public class GuiFigur extends JFrame {
         if (buttonauswahl == JFileChooser.APPROVE_OPTION) { // Datei wurde ausgewaehlt
             File datei = auswahldialog.getSelectedFile();
             try {
-                BufferedReader leser = new BufferedReader(new FileReader(datei));
                 String s = "";
+                BufferedReader leser = new BufferedReader(new FileReader(datei));
                 String zeile = leser.readLine();
                 while (zeile != null) {
                     s = s + zeile + "\n";
                     zeile = leser.readLine();
                 }
                 neuronalesNetz = Netz.parseNetz(s);
+                jpRGB.setzeNeuronalesNetz(neuronalesNetz);
                 leser.close();
             } catch (Exception e) {
                 System.err.println(e.toString());
@@ -380,7 +384,7 @@ public class GuiFigur extends JFrame {
             }
             try {
                 FileWriter schreiber = new FileWriter(datei);
-                schreiber.write(trainingsdaten.toString());
+                schreiber.write(jpRGB.gibTrainingsdaten().toString());
                 schreiber.close();
             } catch (Exception e) {
                 System.err.println(e.toString());
@@ -408,78 +412,19 @@ public class GuiFigur extends JFrame {
                     s = s + zeile + "\n";
                     zeile = leser.readLine();
                 }
-                trainingsdaten = Datensammlung.parseDatensammlung(s);
+                jpRGB.setzeTrainingsdaten(Datensammlung.parseDatensammlung(s));
                 leser.close();
             } catch (Exception e) {
                 System.err.println(e.toString());
             }
-        } 
-        trainingsdaten.gibDaten().toFirst(); 
-        zeigeAktuellenDatensatz();
+        }  
         repaint();  
-    }
-
-    private void zeigeAktuellenDatensatz() {
-        jpFigur.neuesBild();
-        jpFigur.repaint();
-        List<Datensatz> l = trainingsdaten.gibDaten(); 
-        String figur = jpFigur.zeichneDatensatz(l.getContent());
-        jtfFigur.setText(figur);
-        jlNummer.setText("" + datensatzNummer);
-    }
-
-    public void jbNeueZiffer_ActionPerformed(ActionEvent evt) {
-
-        int f = JOptionPane.showOptionDialog(this, "Welcher Figur entspricht das Bild", "Auswahl", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, jpFigur.figuren, null);
-        if (f >= 0 && f <= 2) {
-            trainingsdaten.fuegeEin(jpFigur.erstelleDatensatz(f));
-        }
-        jpFigur.repaint();
-        jbZumEnde_ActionPerformed(evt);
-    }
-
-    public void jbZeichenflaecheLoeschen_ActionPerformed(ActionEvent evt) {
-        jpFigur.neuesBild();
-        jtfFigur.setText("");
-        jpFigur.repaint();
-
-    }
-
-    public void jbZumAnfang_ActionPerformed(ActionEvent evt) {
-        trainingsdaten.gibDaten().toFirst(); 
-        datensatzNummer = 1;
-        zeigeAktuellenDatensatz();
-    }
-
-    public void jbVor_ActionPerformed(ActionEvent evt) {
-        trainingsdaten.gibDaten().next(); 
-        datensatzNummer++;    
-        zeigeAktuellenDatensatz();
-    }
-
-    public void jbZumEnde_ActionPerformed(ActionEvent evt) {
-        datensatzNummer = trainingsdaten.gibGroesse();
-        trainingsdaten.gibDaten().toLast(); 
-        zeigeAktuellenDatensatz();
-    }
-
-    public void jbErkenne_ActionPerformed(ActionEvent evt) {
-        if (neuronalesNetz == null) {
-            JOptionPane.showMessageDialog(this, "Erst ein neuronales Netz erstellen");
-        } else {
-            Datensatz d = jpFigur.erstelleDatensatz(0);
-            double[] eingabe = d.gibEingabe();
-            double[] ausgabe = neuronalesNetz.berechne(eingabe);
-            Datensatz z = new Datensatz(eingabe, ausgabe);
-            String figur = jpFigur.zeichneDatensatz(z);
-            jtfFigur.setText("" + figur);
-        }
     }
 
     // Ende Methoden
 
     public static void main(String[] args) {
-        new GuiFigur("Gui-Figur");
+        new GuiRGB("Gui-RGB");
     }
 }
 

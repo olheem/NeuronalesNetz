@@ -1,3 +1,5 @@
+package NeuronalesNetz;
+
 /**
  * Ein neuronales Netz
  * 

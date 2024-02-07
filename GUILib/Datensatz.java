@@ -1,3 +1,5 @@
+package GUILib;
+
 /**
  * Die Klasse Datensatz enthaelt die Daten fuer einen einzelnen Trainingsdatensatz
  * fuer ein neuronales Netz. Mit Objekten dieser Klasse kann ein neuronales Netz

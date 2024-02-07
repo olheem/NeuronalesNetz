@@ -1,3 +1,5 @@
+package NeuronalesNetz;
+
 /**
  * Die Softsign-Funktion als Aktivierungsfunktion.
  * 

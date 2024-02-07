@@ -27,7 +27,7 @@ hs_err_pid*
 replay_pid*
 
 # Dokumentationen im Unterordner Quellcode
-Quellcode/doc/
+doc/
 
 # Daten
 *.csv
@@ -36,6 +36,7 @@ Quellcode/doc/
 
 # Zentralabiturklassen
 List.java
+GUILib/List.java
 
 # Dokumentionen
 *.pdf

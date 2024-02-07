@@ -3,14 +3,16 @@
 Diese Implementation soll die Erstellung eigener neuronaler Netze mit Java im Unterricht der gymnasialen Oberstufe ermöglichen.
 
 ## Installation und Verwendung
-In den Projektordner muss für die graphischen Beispiele die Datei List.java der [nordrhein-westfälischen Abiturklassen](https://www.schulentwicklung.nrw.de/lehrplaene/lehrplannavigator-s-ii/gymnasiale-oberstufe/informatik/hinweise-und-beispiele/hinweise-und-beispiele.html) kopiert werden. Danach kann man das Projekt z.B. mit [BlueJ](https://www.bluej.org/) oder dem [Java-Editor](https://javaeditor.org/doku.php?id=start) öffnen. Mit letzterem Programm kann man auch die GUIs bearbeiten.
+In den Ordner GUILIb muss für die graphischen Beispiele die Datei List.java der [nordrhein-westfälischen Abiturklassen](https://www.schulentwicklung.nrw.de/lehrplaene/lehrplannavigator-s-ii/gymnasiale-oberstufe/informatik/hinweise-und-beispiele/hinweise-und-beispiele.html) kopiert werden. Danach kann man das Projekt z.B. mit [BlueJ](https://www.bluej.org/) oder dem [Java-Editor](https://javaeditor.org/doku.php?id=start) öffnen. Mit letzterem Programm kann man auch die GUIs bearbeiten.
 
 ## Klassen
-Die Klassen Neuron, Schicht und Netz modellieren ein Neuronales Netz in einem BlueJ-Projekt.
+Die Klassen Neuron, Schicht und Netz im Unterordner NeuronalesNetz modellieren ein Neuronales Netz in einem BlueJ-Projekt.
 Dabei kann man die folgenden Aktivierungsfunktionen wählen:
 - Sigmoid
 - Softsign
 - Tangens hyperbolicus
+
+Die Klassen im Unterordner GUILib sind Hilfsklassen für die graphischen Benutzeroberflächen.
 
 ## Beispiele
 

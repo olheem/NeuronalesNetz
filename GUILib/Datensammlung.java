@@ -1,3 +1,5 @@
+package GUILib;
+
 /**
  * Die Klasse Datensammlung enthaelt eine Sammlung von Trainingsdaten in Form 
  * von Objekten der Klasse Datensatz.

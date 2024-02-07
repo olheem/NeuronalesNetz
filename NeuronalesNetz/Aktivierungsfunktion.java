@@ -1,3 +1,5 @@
+package NeuronalesNetz;
+
 /**
  * Die Aktivierungsfunktion für ein neuronales Netz.
  * 
