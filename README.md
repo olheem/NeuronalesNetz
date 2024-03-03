@@ -16,10 +16,16 @@ Die Klassen im Unterordner GUILib sind Hilfsklassen für die graphischen Benutze
 
 ## Beispiele
 
-### MNIST
-Mit dieser Klasse kann man ein Standardbeispiel für Neuronale Netze, die Erkennung von handschriftlichen Ziffern durchspielen.
+### MNIST1 und MNIST10
+Mit dieser Klasse kann man ein Standardbeispiel für Neuronale Netze, die Erkennung von handschriftlichen Ziffern durchspielen. Bei ersterer Klasse gibt es ein Ausgabeneuron, bei letzterer zehn.
 
 Dazu benötigt man die MNIST-Daten im Format csv. Die Dateien mnist_train.csv und mnist_test.csv müssen in den Ordner Quellcode kopiert werden. Außerdem muss jeweils die erste Zeile mit der "Überschrift" entfernt werden.
+
+### CSV
+Mit dieser Klasse kann man Daten aus CSV-Dateien einlesen und diese zum Training nutzen.
+
+### Auftriebskraft
+Eine Implementation zum Training mit Messwerten aus einem Versuch zur Ermittlung der Auftriebskraft.
 
 ### GUIRGB
 Eine Programm mit graphischer Oberfläche zur Clusterung von verschieden gefärbten Punkten.
