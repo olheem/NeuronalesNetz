@@ -7,21 +7,21 @@ import NeuronalesNetz.*;
  * @author Dr. Oliver Heidbüchel
  * @version 2023-04-26
  */
-public class MNIST
+public class MNIST10
 {
     private Netz n;
     private double[][] eingabe;
     private double[][] ausgabe;
-    double lernrate = 0.001;
-    int paketGroesse = 1000;
-    int wiederholungen = 100;
+    private double lernrate = 0.001;
+    private int paketGroesse = 1000;
+    private int wiederholungen = 100;
 
     /**
      * Konstruktor für die Erkennung von handgeschriebenen Ziffern mit den MNIST-Daten
      * 
      * @param af Aktivierungfunktion
      */
-    public MNIST(Aktivierungsfunktion af)
+    public MNIST10(Aktivierungsfunktion af)
     {
         n = new Netz(784, new int[]{20,20,10}, af);
 
