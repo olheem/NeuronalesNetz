@@ -11,7 +11,7 @@ public class MNIST1 extends CSV
             eingabeSpalten[i] = i + 1;
         }
         super.init("mnist_train.csv", ',', 60000, eingabeSpalten, new int[]{0}, new double[]{10});
-        erzeugeNetz(new int[]{20, 20}, new NeuronalesNetz.Sigmoid());
+        erzeugeNetz(new int[]{20, 20, 10}, new NeuronalesNetz.Sigmoid());
     }
 
     /**
