@@ -9,15 +9,14 @@ import java.io.*;
 import java.io.FileWriter;
 import java.io.FileReader;
 
-import GUILib.*;
 import NeuronalesNetz.*;
-
+import GUILib.*;
 
 /**
  *
  * Grafische Oberflaeche fuer Neuronale Netze mit Farben
  *
- * @version 2024-01-20
+ * @version 2024-02-25
  * @author Daniel Garmann
  */
 
@@ -177,6 +176,7 @@ public class GuiRGB extends JFrame {
         jcbFunktionModel.addElement("Sigmoid");
         jcbFunktionModel.addElement("SoftSign");
         jcbFunktionModel.addElement("TanHyp");
+        jcbFunktionModel.addElement("ReLU");
         jpNetzarchitektur.add(jcbFunktion);
         jlSchichten.setText("Schichten:");
         jpNetzarchitektur.add(jlSchichten);

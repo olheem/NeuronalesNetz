@@ -8,7 +8,6 @@ import javax.swing.event.*;
 
 import NeuronalesNetz.*;
 
-
 public class PanelRGB extends JPanel {
 
     private Color aktuelleFarbe = Color.RED;

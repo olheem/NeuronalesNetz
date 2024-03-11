@@ -8,7 +8,6 @@ import javax.swing.event.*;
 
 import NeuronalesNetz.*;
 
-
 public class PanelKurve extends JPanel {
 
     private Datensammlung trainingsdaten;

@@ -1,6 +1,6 @@
-object GuiFiguren: TFGUIForm
-  Left = 910
-  Top = 279
+object GuiFigur: TFGUIForm
+  Left = 217
+  Top = 187
   BorderIcons = [biSystemMenu]
   Caption = 'GUI'
   ClientHeight = 482
@@ -807,17 +807,17 @@ object GuiFiguren: TFGUIForm
   end
   object jbZumAnfang: TJButton
     Tag = 4
-    Left = 576
+    Left = 544
     Top = 8
-    Width = 33
-    Height = 25
+    Width = 50
+    Height = 50
     Hint = 'jButton1'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -24
     Font.Name = 'Dialog'
     Font.Style = [fsBold]
-    Foreground = 3355443
+    Foreground = clWindowText
     Background = 15658734
     actionPerformed = 'jbZumAnfang_ActionPerformed'
     Text = '|<'
@@ -851,17 +851,17 @@ object GuiFiguren: TFGUIForm
   end
   object jbVor: TJButton
     Tag = 4
-    Left = 616
+    Left = 592
     Top = 8
-    Width = 33
-    Height = 25
+    Width = 50
+    Height = 50
     Hint = 'jButton1'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -24
     Font.Name = 'Dialog'
     Font.Style = [fsBold]
-    Foreground = 3355443
+    Foreground = clWindowText
     Background = 15658734
     actionPerformed = 'jbVor_ActionPerformed'
     Text = '>'
@@ -895,17 +895,17 @@ object GuiFiguren: TFGUIForm
   end
   object jbZumEnde: TJButton
     Tag = 4
-    Left = 656
+    Left = 640
     Top = 8
-    Width = 33
-    Height = 25
+    Width = 50
+    Height = 50
     Hint = 'jButton1'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -24
     Font.Name = 'Dialog'
     Font.Style = [fsBold]
-    Foreground = 3355443
+    Foreground = clWindowText
     Background = 15658734
     actionPerformed = 'jbZumEnde_ActionPerformed'
     Text = '>|'
@@ -1002,9 +1002,9 @@ object GuiFiguren: TFGUIForm
   end
   object jlNummer: TJLabel
     Tag = 1
-    Left = 576
-    Top = 40
-    Width = 113
+    Left = 696
+    Top = 32
+    Width = 41
     Height = 25
     Hint = 'jLabel1'
     Font.Charset = DEFAULT_CHARSET
@@ -1022,5 +1022,49 @@ object GuiFiguren: TFGUIForm
     IconTextGap = 4
     DisplayedMnemonic = 0
     DisplayedMnemonicIndex = 0
+  end
+  object jbStatistik: TJButton
+    Tag = 4
+    Left = 234
+    Top = 440
+    Width = 190
+    Height = 25
+    Hint = 'jButton1'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Dialog'
+    Font.Style = [fsBold]
+    Foreground = 3355443
+    Background = 15658734
+    actionPerformed = 'jbStatistik_ActionPerformed'
+    Text = 'Statistik'
+    Mnemonic = 0
+    DisplayedMnemonicIndex = 0
+    Selected = False
+    BorderPainted = True
+    FocusPainted = False
+    ContentAreaFilled = True
+    HorizontalAlignment = CENTER
+    VerticalAlignment = CENTER
+    HorizontalTextPosition = RIGHT
+    VerticalTextPosition = CENTER
+    IconTextGap = 4
+    RolloverEnabled = False
+    Border.BorderType = NoBorder
+    Border.LineColor = clBlack
+    Border.LineThickness = 0
+    Border.LineRounded = False
+    Border.EtchHighlightColor = clBlack
+    Border.EtchShadowColor = clBlack
+    Border.Etchtype = 0
+    Border.BevelHighlightColor = clBlack
+    Border.BevelShadowColor = clBlack
+    Border.Beveltype = 0
+    Border.MatteColor = clBlack
+    Border.MatteTop = 0
+    Border.MatteLeft = 0
+    Border.MatteBottom = 0
+    Border.MatteRight = 0
   end
 end

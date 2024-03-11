@@ -7,8 +7,13 @@ import javax.swing.*;
 import javax.swing.event.*; 
 import java.awt.RenderingHints;
 
-import NeuronalesNetz.*;
-
+/**
+ *
+ * Unterklasse von JPanel fuer Neuronale Netze zur Ziffernerkennung
+ *
+ * @version 2024-02-21
+ * @author Daniel Garmann
+ */
 
 public class PanelZiffern extends JPanel {
 
@@ -101,12 +106,12 @@ public class PanelZiffern extends JPanel {
         if (pDatensatz != null) {
             BufferedImage hilf = new BufferedImage(28, 28, BufferedImage.TYPE_INT_RGB);
             for (int i = 0; i < 28 * 28; i++) {
-                int grauwert = (int)pDatensatz.gibEingabe()[i];
+                int grauwert = 255-(int)pDatensatz.gibEingabe()[i];
                 hilf.setRGB(i % 28, i / 28, grauwert*(1 + 256 + 256 * 256));
             }
             bild = skaliere(hilf, 400);
             repaint();        
-            double max = 0;
+            double max = -100;
             int ziffer = 0;
             for (int i = 0; i < 10; i++) {
                 if (pDatensatz.gibZielwert()[i] > max) {
@@ -132,7 +137,7 @@ public class PanelZiffern extends JPanel {
         double[] eingabe = new double[28*28];
         for (int x = 0; x < 28; x++) {
             for (int y = 0; y < 28; y++) {
-                eingabe[x + y*28] = 1.0*(hilf.getRGB(x, y)  & 0x000000FF);
+                eingabe[x + y*28] = 1.0*(255-(hilf.getRGB(x, y) & 0x000000FF));
             }
         }
         double[] zielwert = new double[10];

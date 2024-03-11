@@ -1,9 +1,9 @@
 object GuiZiffern: TFGUIForm
-  Left = 99
-  Top = 125
+  Left = 647
+  Top = 75
   BorderIcons = [biSystemMenu]
   Caption = 'GUI'
-  ClientHeight = 467
+  ClientHeight = 496
   ClientWidth = 744
   Color = clBtnFace
   ParentFont = True
@@ -17,13 +17,13 @@ object GuiZiffern: TFGUIForm
   OnMouseActivate = FormMouseActivate
   OnResize = FormResize
   FrameType = 5
-  Modified = False
+  Modified = True
   Resizable = False
   Undecorated = False
   Background = clBtnFace
   PixelsPerInch = 96
   TextHeight = 13
-  object jpRGB: TJPanel
+  object jpZiffer: TJPanel
     Tag = 12
     Left = 24
     Top = 8
@@ -37,7 +37,7 @@ object GuiZiffern: TFGUIForm
     Font.Style = [fsBold]
     Foreground = 3355443
     Background = clBtnFace
-    mouseClicked = 'jpRGB_MouseDragged'
+    mouseClicked = 'jpZifferl1_MouseDragged'
     mouseDragged = 'jPanel1_MouseDragged'
     Border.BorderType = LineBorder
     Border.LineColor = clBlack
@@ -58,7 +58,7 @@ object GuiZiffern: TFGUIForm
   object jbNetzErstellen: TJButton
     Tag = 4
     Left = 440
-    Top = 208
+    Top = 232
     Width = 283
     Height = 25
     Hint = 'jButton1'
@@ -102,7 +102,7 @@ object GuiZiffern: TFGUIForm
   object jbTrainiere: TJButton
     Tag = 4
     Left = 440
-    Top = 392
+    Top = 416
     Width = 115
     Height = 25
     Hint = 'jButton1'
@@ -146,7 +146,7 @@ object GuiZiffern: TFGUIForm
   object jbLoeschen: TJButton
     Tag = 4
     Left = 440
-    Top = 72
+    Top = 64
     Width = 283
     Height = 25
     Hint = 'jButton1'
@@ -190,7 +190,7 @@ object GuiZiffern: TFGUIForm
   object jpNetzarchitektur: TJPanel
     Tag = 12
     Left = 440
-    Top = 128
+    Top = 152
     Width = 289
     Height = 73
     Hint = 'jPanel1'
@@ -233,7 +233,7 @@ object GuiZiffern: TFGUIForm
       Foreground = 3355443
       Background = clWhite
       HorizontalAlignment = CENTER
-      Text = '100'
+      Text = '20>20'
       Editable = True
     end
     object jcbFunktion: TJComboBox
@@ -345,7 +345,7 @@ object GuiZiffern: TFGUIForm
   object jpTraining: TJPanel
     Tag = 12
     Left = 440
-    Top = 272
+    Top = 296
     Width = 289
     Height = 113
     Hint = 'jPanel1'
@@ -502,7 +502,7 @@ object GuiZiffern: TFGUIForm
   object jtfFehler: TJTextField
     Tag = 2
     Left = 651
-    Top = 397
+    Top = 421
     Width = 70
     Height = 20
     Cursor = crIBeam
@@ -521,7 +521,7 @@ object GuiZiffern: TFGUIForm
   object jlFehler: TJLabel
     Tag = 1
     Left = 574
-    Top = 397
+    Top = 421
     Width = 67
     Height = 20
     Hint = 'jLabel1'
@@ -544,7 +544,7 @@ object GuiZiffern: TFGUIForm
   object jbNetzSpeichern: TJButton
     Tag = 4
     Left = 440
-    Top = 240
+    Top = 264
     Width = 139
     Height = 25
     Hint = 'jButton1'
@@ -588,7 +588,7 @@ object GuiZiffern: TFGUIForm
   object jbNetzLaden: TJButton
     Tag = 4
     Left = 584
-    Top = 240
+    Top = 264
     Width = 139
     Height = 25
     Hint = 'jButton1'
@@ -632,7 +632,7 @@ object GuiZiffern: TFGUIForm
   object jbDatenSpeichern: TJButton
     Tag = 4
     Left = 440
-    Top = 104
+    Top = 128
     Width = 139
     Height = 25
     Hint = 'jButton1'
@@ -676,7 +676,7 @@ object GuiZiffern: TFGUIForm
   object jbDatenLaden: TJButton
     Tag = 4
     Left = 584
-    Top = 104
+    Top = 128
     Width = 139
     Height = 25
     Hint = 'jButton1'
@@ -719,9 +719,9 @@ object GuiZiffern: TFGUIForm
   end
   object jbNeueZiffer: TJButton
     Tag = 4
-    Left = 234
-    Top = 408
-    Width = 190
+    Left = 226
+    Top = 416
+    Width = 198
     Height = 25
     Hint = 'jButton1'
     Font.Charset = DEFAULT_CHARSET
@@ -732,7 +732,7 @@ object GuiZiffern: TFGUIForm
     Foreground = 3355443
     Background = 15658734
     actionPerformed = 'jbNeueZiffer_ActionPerformed'
-    Text = 'gezeichnete Ziffer -> Trainingsdaten'
+    Text = 'Ziffer -> Trainingsdaten'
     Mnemonic = 0
     DisplayedMnemonicIndex = 0
     Selected = False
@@ -764,7 +764,7 @@ object GuiZiffern: TFGUIForm
   object jbZeichenflaecheLoeschen: TJButton
     Tag = 4
     Left = 24
-    Top = 408
+    Top = 416
     Width = 190
     Height = 25
     Hint = 'jButton1'
@@ -807,17 +807,17 @@ object GuiZiffern: TFGUIForm
   end
   object jbZumAnfang: TJButton
     Tag = 4
-    Left = 544
+    Left = 576
     Top = 8
-    Width = 33
-    Height = 25
+    Width = 50
+    Height = 50
     Hint = 'jButton1'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -24
     Font.Name = 'Dialog'
     Font.Style = [fsBold]
-    Foreground = 3355443
+    Foreground = clWindowText
     Background = 15658734
     actionPerformed = 'jbZumAnfang_ActionPerformed'
     Text = '|<'
@@ -851,14 +851,14 @@ object GuiZiffern: TFGUIForm
   end
   object jbVor: TJButton
     Tag = 4
-    Left = 584
+    Left = 624
     Top = 8
-    Width = 33
-    Height = 25
+    Width = 50
+    Height = 50
     Hint = 'jButton1'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -24
     Font.Name = 'Dialog'
     Font.Style = [fsBold]
     Foreground = 3355443
@@ -895,14 +895,14 @@ object GuiZiffern: TFGUIForm
   end
   object jbZumEnde: TJButton
     Tag = 4
-    Left = 624
+    Left = 672
     Top = 8
-    Width = 33
-    Height = 25
+    Width = 50
+    Height = 50
     Hint = 'jButton1'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -12
+    Font.Height = -24
     Font.Name = 'Dialog'
     Font.Style = [fsBold]
     Foreground = 3355443
@@ -959,7 +959,7 @@ object GuiZiffern: TFGUIForm
   object jbErkennen: TJButton
     Tag = 4
     Left = 24
-    Top = 432
+    Top = 456
     Width = 190
     Height = 25
     Hint = 'jButton1'
@@ -1000,10 +1000,10 @@ object GuiZiffern: TFGUIForm
     Border.MatteBottom = 0
     Border.MatteRight = 0
   end
-  object jbMNIST: TJButton
+  object bMNISTTrainigsdaten: TJButton
     Tag = 4
-    Left = 584
-    Top = 40
+    Left = 440
+    Top = 96
     Width = 139
     Height = 25
     Hint = 'jButton2'
@@ -1014,8 +1014,8 @@ object GuiZiffern: TFGUIForm
     Font.Style = [fsBold]
     Foreground = 3355443
     Background = 15658734
-    actionPerformed = 'jbMNIST_ActionPerformed'
-    Text = 'MNIST laden'
+    actionPerformed = 'bMNISTTrainigsdaten_ActionPerformed'
+    Text = 'MNIST Trainigsdaten'
     Mnemonic = 0
     DisplayedMnemonicIndex = 0
     Selected = False
@@ -1028,6 +1028,124 @@ object GuiZiffern: TFGUIForm
     VerticalTextPosition = CENTER
     IconTextGap = 4
     RolloverEnabled = False
+    Border.BorderType = NoBorder
+    Border.LineColor = clBlack
+    Border.LineThickness = 0
+    Border.LineRounded = False
+    Border.EtchHighlightColor = clBlack
+    Border.EtchShadowColor = clBlack
+    Border.Etchtype = 0
+    Border.BevelHighlightColor = clBlack
+    Border.BevelShadowColor = clBlack
+    Border.Beveltype = 0
+    Border.MatteColor = clBlack
+    Border.MatteTop = 0
+    Border.MatteLeft = 0
+    Border.MatteBottom = 0
+    Border.MatteRight = 0
+  end
+  object bMNISTTestdaten: TJButton
+    Tag = 4
+    Left = 584
+    Top = 96
+    Width = 139
+    Height = 25
+    Hint = 'jButton1'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Dialog'
+    Font.Style = [fsBold]
+    Foreground = 3355443
+    Background = 15658734
+    actionPerformed = 'bMNISTTestdaten_ActionPerformed'
+    Text = 'MNIST Testdaten'
+    Mnemonic = 0
+    DisplayedMnemonicIndex = 0
+    Selected = False
+    BorderPainted = True
+    FocusPainted = False
+    ContentAreaFilled = True
+    HorizontalAlignment = CENTER
+    VerticalAlignment = CENTER
+    HorizontalTextPosition = RIGHT
+    VerticalTextPosition = CENTER
+    IconTextGap = 4
+    RolloverEnabled = False
+    Border.BorderType = NoBorder
+    Border.LineColor = clBlack
+    Border.LineThickness = 0
+    Border.LineRounded = False
+    Border.EtchHighlightColor = clBlack
+    Border.EtchShadowColor = clBlack
+    Border.Etchtype = 0
+    Border.BevelHighlightColor = clBlack
+    Border.BevelShadowColor = clBlack
+    Border.Beveltype = 0
+    Border.MatteColor = clBlack
+    Border.MatteTop = 0
+    Border.MatteLeft = 0
+    Border.MatteBottom = 0
+    Border.MatteRight = 0
+  end
+  object jbStatistik: TJButton
+    Tag = 4
+    Left = 224
+    Top = 456
+    Width = 203
+    Height = 25
+    Hint = 'jButton1'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Dialog'
+    Font.Style = [fsBold]
+    Foreground = 3355443
+    Background = 15658734
+    actionPerformed = 'jbStatistik_ActionPerformed'
+    Text = 'Statistik'
+    Mnemonic = 0
+    DisplayedMnemonicIndex = 0
+    Selected = False
+    BorderPainted = True
+    FocusPainted = False
+    ContentAreaFilled = True
+    HorizontalAlignment = CENTER
+    VerticalAlignment = CENTER
+    HorizontalTextPosition = RIGHT
+    VerticalTextPosition = CENTER
+    IconTextGap = 4
+    RolloverEnabled = False
+    Border.BorderType = NoBorder
+    Border.LineColor = clBlack
+    Border.LineThickness = 0
+    Border.LineRounded = False
+    Border.EtchHighlightColor = clBlack
+    Border.EtchShadowColor = clBlack
+    Border.Etchtype = 0
+    Border.BevelHighlightColor = clBlack
+    Border.BevelShadowColor = clBlack
+    Border.Beveltype = 0
+    Border.MatteColor = clBlack
+    Border.MatteTop = 0
+    Border.MatteLeft = 0
+    Border.MatteBottom = 0
+    Border.MatteRight = 0
+  end
+  object jpDiagramm: TJPanel
+    Tag = 12
+    Left = 480
+    Top = 8
+    Width = 80
+    Height = 50
+    Hint = 'jPanel1'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Dialog'
+    Font.Style = [fsBold]
+    Foreground = 3355443
+    Background = clBtnFace
     Border.BorderType = NoBorder
     Border.LineColor = clBlack
     Border.LineThickness = 0

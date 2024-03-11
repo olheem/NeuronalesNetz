@@ -8,8 +8,13 @@ import javax.swing.event.*;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 
-import NeuronalesNetz.*;
-
+/**
+ *
+ * Unterklasse von JPanel fuer Neuronale Netze zur Figurenerkennung
+ *
+ * @version 2024-02-21
+ * @author Daniel Garmann
+ */
 
 public class PanelFigur extends JPanel {
 
@@ -115,7 +120,7 @@ public class PanelFigur extends JPanel {
         BufferedImage hilf = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
         for (int i = 0; i < 10 * 10; i++) {
           int grauwert = (int)pDatensatz.gibEingabe()[i];
-          hilf.setRGB(i % 10, i / 10, grauwert*(1 + 256 + 256 * 256));
+          hilf.setRGB(i % 10, i / 10, (255-grauwert)*(1 + 256 + 256 * 256));
         }
         bild = skaliere(hilf, 400);
         repaint();        
@@ -150,7 +155,7 @@ public class PanelFigur extends JPanel {
       double[] eingabe = new double[10*10];
       for (int x = 0; x < 10; x++) {
         for (int y = 0; y < 10; y++) {
-          eingabe[x + y*10] = 1.0*(hilf.getRGB(x, y)  & 0x000000FF);
+          eingabe[x + y*10] = 1.0*(255 - (hilf.getRGB(x, y)  & 0x000000FF));
         }
       }
       double[] zielwert = new double[3];

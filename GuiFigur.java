@@ -9,19 +9,15 @@ import java.io.*;
 import java.io.FileWriter;
 import java.io.FileReader;
 
-import GUILib.*;
 import NeuronalesNetz.*;
-
+import GUILib.*;
 
 /**
  *
  * Grafische Oberflaeche fuer Neuronale Netze auf Figuren-Erkennung
  *
- * @version 2024-01-20
+ * @version 2024-02-25
  * @author Daniel Garmann
- *
- * @version 2024-01-29
- * @author Oliver Heidbuechel
  */
 
 public class GuiFigur extends JFrame {
@@ -63,6 +59,7 @@ public class GuiFigur extends JFrame {
     private JTextField jtfFigur = new JTextField();
     private JButton jbErkenne = new JButton();
     private JLabel jlNummer = new JLabel();
+    private JButton jbStatistik = new JButton();
     // Ende Attribute
 
     public GuiFigur (String title) {
@@ -124,6 +121,7 @@ public class GuiFigur extends JFrame {
         jcbFunktionModel.addElement("Sigmoid");
         jcbFunktionModel.addElement("SoftSign");
         jcbFunktionModel.addElement("TanHyp");
+        jcbFunktionModel.addElement("ReLU");
         jpNetzarchitektur.add(jcbFunktion);
         jlSchichten.setText("Schichten:");
         jpNetzarchitektur.add(jlSchichten);
@@ -225,7 +223,7 @@ public class GuiFigur extends JFrame {
                 }
             });
         cp.add(jbZeichenflaecheLoeschen);
-        jbZumAnfang.setBounds(576, 8, 33, 25);
+        jbZumAnfang.setBounds(544, 8, 50, 50);
         jbZumAnfang.setText("|<");
         jbZumAnfang.setMargin(new Insets(2, 2, 2, 2));
         jbZumAnfang.addActionListener(new ActionListener() { 
@@ -233,8 +231,9 @@ public class GuiFigur extends JFrame {
                     jbZumAnfang_ActionPerformed(evt);
                 }
             });
+        jbZumAnfang.setFont(new Font("Dialog", Font.BOLD, 24));
         cp.add(jbZumAnfang);
-        jbVor.setBounds(616, 8, 33, 25);
+        jbVor.setBounds(592, 8, 50, 50);
         jbVor.setText(">");
         jbVor.setMargin(new Insets(2, 2, 2, 2));
         jbVor.addActionListener(new ActionListener() { 
@@ -242,8 +241,9 @@ public class GuiFigur extends JFrame {
                     jbVor_ActionPerformed(evt);
                 }
             });
+        jbVor.setFont(new Font("Dialog", Font.BOLD, 24));
         cp.add(jbVor);
-        jbZumEnde.setBounds(656, 8, 33, 25);
+        jbZumEnde.setBounds(640, 8, 50, 50);
         jbZumEnde.setText(">|");
         jbZumEnde.setMargin(new Insets(2, 2, 2, 2));
         jbZumEnde.addActionListener(new ActionListener() { 
@@ -251,6 +251,7 @@ public class GuiFigur extends JFrame {
                     jbZumEnde_ActionPerformed(evt);
                 }
             });
+        jbZumEnde.setFont(new Font("Dialog", Font.BOLD, 24));
         cp.add(jbZumEnde);
         jtfFigur.setBounds(424, 8, 113, 49);
         jtfFigur.setHorizontalAlignment(SwingConstants.CENTER);
@@ -267,10 +268,19 @@ public class GuiFigur extends JFrame {
                 }
             });
         cp.add(jbErkenne);
-        jlNummer.setBounds(576, 40, 113, 25);
+        jlNummer.setBounds(696, 32, 41, 25);
         jlNummer.setText("0");
         jlNummer.setHorizontalAlignment(SwingConstants.CENTER);
         cp.add(jlNummer);
+        jbStatistik.setBounds(234, 440, 190, 25);
+        jbStatistik.setText("Statistik");
+        jbStatistik.setMargin(new Insets(2, 2, 2, 2));
+        jbStatistik.addActionListener(new ActionListener() { 
+                public void actionPerformed(ActionEvent evt) { 
+                    jbStatistik_ActionPerformed(evt);
+                }
+            });
+        cp.add(jbStatistik);
         // Ende Komponenten
         setResizable(false);
         setVisible(true);
@@ -429,7 +439,8 @@ public class GuiFigur extends JFrame {
     private void zeigeAktuellenDatensatz() {
         jpFigur.neuesBild();
         jpFigur.repaint();
-        String figur = jpFigur.zeichneDatensatz(trainingsdaten.gibDaten().getContent());
+        GUILib.List<Datensatz> l = trainingsdaten.gibDaten(); 
+        String figur = jpFigur.zeichneDatensatz(l.getContent());
         jtfFigur.setText(figur);
         jlNummer.setText("" + datensatzNummer);
     }
@@ -475,10 +486,50 @@ public class GuiFigur extends JFrame {
         } else {
             Datensatz d = jpFigur.erstelleDatensatz(0);
             double[] eingabe = d.gibEingabe();
-            double[] ausgabe = neuronalesNetz.berechne(eingabe);
+            double[] ausgabe = neuronalesNetz.berechne(eingabe);   
             Datensatz z = new Datensatz(eingabe, ausgabe);
             String figur = jpFigur.zeichneDatensatz(z);
             jtfFigur.setText("" + figur);
+        }
+    }
+
+    public void jbStatistik_ActionPerformed(ActionEvent evt) {
+        if (neuronalesNetz == null) {
+            JOptionPane.showMessageDialog(this, "Erst ein neuronales Netz erstellen");
+        } else {
+            GUILib.List<Datensatz> daten = trainingsdaten.gibDaten();
+            daten.toFirst();
+            int[][] erkannt = new int[3][2];
+            while (daten.hasAccess()) {
+                Datensatz d = daten.getContent();
+                double[] eingabe = d.gibEingabe();
+                double[] zielwert = d.gibZielwert();
+                double[] ausgabe = neuronalesNetz.berechne(eingabe);
+                int soll = 0;
+                int ist = 0;
+                for (int i = 1; i < 3; i++) {
+                    if (zielwert[i] > zielwert[soll]) soll = i;
+                    if (ausgabe[i] > ausgabe[ist]) ist = i;
+                }
+                if (soll == ist) {
+                    erkannt[soll][0]++;
+                } else {
+                    erkannt[soll][1]++;
+                }
+                daten.next();
+            } // end of while
+            String s = "";
+            int summerichtig = 0;
+            int summefalsch = 0;
+            for (int i = 0; i < 3; i++) {
+                s += jpFigur.figuren[i] + ": " + erkannt[i][0] + " richtig / " + erkannt[i][1] + " falsch\n";
+                summerichtig += erkannt[i][0];
+                summefalsch += erkannt[i][1];
+            }
+            s += "-----------------------------------------\n";
+            s += "Gesamt: " + summerichtig + " richtig / " + summefalsch + " falsch\n";
+            s += "Quote: " + Math.round(((double)summerichtig) / (summerichtig + summefalsch) * 100) + "%";
+            JOptionPane.showMessageDialog(this, s, "Auswertung", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
