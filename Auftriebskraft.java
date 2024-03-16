@@ -10,6 +10,9 @@ public class Auftriebskraft extends CSV
      * Initialisiere das Netz
      */
     public void init(){
+        // Erste Spalte in der Datei: Masse
+        // Zweite Spalte in der Datei: Volumen
+        // Dritte Spalte in der Datei: Auftriebskraft (muss durch zwei geteilt werden, damit alle Werte unter 1 sind)
         super.init("./Daten/auftriebskraft.daten", ';', 32, new int[]{1}, new int[]{2}, new double[]{2});
         erzeugeNetz(new int[]{3,5,3}, new NeuronalesNetz.Sigmoid());
     }
