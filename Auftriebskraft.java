@@ -10,7 +10,7 @@ public class Auftriebskraft extends CSV
      * Initialisiere das Netz
      */
     public void init(){
-        super.init("Auftriebskraft.csv", ';', 32, new int[]{1}, new int[]{2}, new double[]{2});
+        super.init("./Daten/auftriebskraft.daten", ';', 32, new int[]{1}, new int[]{2}, new double[]{2});
         erzeugeNetz(new int[]{3,5,3}, new NeuronalesNetz.Sigmoid());
     }
 
