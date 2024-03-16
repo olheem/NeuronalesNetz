@@ -11,6 +11,7 @@ Dabei kann man die folgenden Aktivierungsfunktionen wählen:
 - Sigmoid
 - Softsign
 - Tangens hyperbolicus
+- Relu
 
 Die Klassen im Unterordner GUILib sind Hilfsklassen für die graphischen Benutzeroberflächen.
 
