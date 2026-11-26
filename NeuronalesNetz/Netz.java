@@ -73,7 +73,7 @@ public class Netz
 
         double f = 0;
         for (int i = 0; i < eingabe.length; i++){
-            f += fehler(ausgabe[0], berechne(eingabe[0]));
+            f += fehler(ausgabe[i], berechne(eingabe[i]));
         }
         return f /= eingabe.length;
     }
